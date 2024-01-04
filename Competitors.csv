@@ -1,0 +1,11 @@
+CompetitorNumber,FirstName,LastName,Email,DateOfBirth,Category,Score1,Score2,Score3,Score4,Score5
+1,John,Doe,johndoe@example.com,1990-05-15,Men's Singles,4,3,5,2,4
+2,Jane,Smith,janesmith@example.com,1988-12-20,Women's Singles,3,4,3,5,2
+3,Michael,Johnson,michaeljohnson@example.com,1995-08-10,Men's Singles,5,2,4,3,5
+4,Emily,White,emilywhite@example.com,1992-03-25,Women's Singles,2,5,3,4,2
+5,Chris,Williams,chriswilliams@example.com,1987-06-08,Men's Singles,4,3,5,2,4
+6,Sophia,Brown,sophiabrown@example.com,1993-09-18,Women's Singles,3,4,3,5,2
+7,Matthew,Miller,matthewmiller@example.com,1989-11-30,Men's Singles,5,2,4,3,5
+8,Olivia,Jones,oliviajones@example.com,1996-04-12,Women's Singles,2,5,3,4,2
+9,Alex,Anderson,alexanderson@example.com,1985-07-24,Men's Singles,4,3,5,2,4
+10,Emma,Thomas,emmathomas@example.com,1991-02-05,Women's Singles,3,4,3,5,2
