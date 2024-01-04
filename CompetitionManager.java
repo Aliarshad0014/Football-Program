@@ -6,11 +6,27 @@ import java.util.ArrayList;
 public class CompetitionManager {
 
     public static void main(String[] args) {
-        CompetitionManager competitionManager = new CompetitionManager();
-        competitionManager.generateCompetitorList();
+        // generateCompetitorList();
+
+        // Assuming you already have the CompetitorList class to read competitors from
+        // CSV
+        CompetitorList competitorList = new CompetitorList("Competitors.csv");
+        ArrayList<Competitor> competitors = competitorList.getCompetitors();
+
+        // Create an instance of the Results class
+        Result result = new Result(competitors);
+
+        // Specify the file path for the report
+        String reportFilePath = "CompetitionResultsReport.txt";
+
+        // Generate the full report
+        result.generateFullReport(reportFilePath);
+
+        // Print a message indicating that the report has been generated
+        System.out.println("Competition results report generated successfully. Check " + reportFilePath);
     }
 
-    public void generateCompetitorList() {
+    public static void generateCompetitorList() {
         CompetitorList competitorList = new CompetitorList("Competitors.csv");
         ArrayList<Competitor> competitors = competitorList.getCompetitors();
 

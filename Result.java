@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -5,6 +7,12 @@ import java.util.Map;
 import java.util.Collections;
 
 public class Result {
+
+    private ArrayList<Competitor> competitors;
+
+    public Result(ArrayList<Competitor> competitors) {
+        this.competitors = competitors;
+    }
 
     public static double calculateOverallScore(Competitor competitor) {
         int[] scores = competitor.getScores();
@@ -96,5 +104,56 @@ public class Result {
         return frequencyMap;
     }
 
-    // Other summary statistics methods can be added as needed
+    public void generateFullReport(String outputFilePath) {
+        try (FileWriter writer = new FileWriter(outputFilePath)) {
+            // Table of competitors with full details
+            writer.write("Competitors Report\n");
+            writer.write(String.format("%-20s %-15s %-15s %-30s %-15s %-20s %-20s\n",
+                    "Competitor Number", "First Name", "Last Name", "Email", "Date of Birth", "Category", "Scores"));
+            for (Competitor competitor : competitors) {
+                writer.write(String.format("%-20s %-15s %-15s %-30s %-15s %-20s %-20s\n",
+                        competitor.getCompetitorNumber(),
+                        competitor.getName().getFirstName(),
+                        competitor.getName().getLastName(),
+                        competitor.getEmail(),
+                        competitor.getDateOfBirth(),
+                        competitor.getCategory(),
+                        scoresToString(competitor.getScores())));
+            }
+
+            // Details of the competitor with the highest overall score
+            Competitor highestScorer = getCompetitorWithHighestOverallScore(competitors);
+            writer.write("\nCompetitor with the Highest Overall Score:\n");
+            writer.write(String.format("Competitor Number: %s\n", highestScorer.getCompetitorNumber()));
+            writer.write(String.format("Competitor Name: %s\n", highestScorer.getName().getFullName()));
+            writer.write(String.format("Overall Score: %.2f\n", calculateOverallScore(highestScorer)));
+
+            // Four other summary statistics
+            writer.write("\nSummary Statistics:\n");
+            writer.write(String.format("Average Top 3 Scores: %.2f\n", calculateAverageTopNScores(highestScorer, 3)));
+            writer.write(
+                    String.format("Weighted Average: %.2f\n", calculateWeightedAverage(highestScorer.getScores())));
+            writer.write(String.format("Average Ignoring Extremes: %.2f\n",
+                    calculateAverageIgnoringExtremes(highestScorer)));
+
+            // Frequency report
+            writer.write("\nScore Frequency Report:\n");
+            Map<Integer, Integer> scoreFrequency = calculateScoreFrequency(competitors);
+            for (Map.Entry<Integer, Integer> entry : scoreFrequency.entrySet()) {
+                writer.write(String.format("Score: %d, Frequency: %d\n", entry.getKey(), entry.getValue()));
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String scoresToString(int[] scores) {
+        StringBuilder sb = new StringBuilder();
+        for (int score : scores) {
+            sb.append(score).append(" ");
+        }
+        return sb.toString().trim();
+    }
+
 }
