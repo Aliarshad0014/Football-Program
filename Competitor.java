@@ -67,4 +67,25 @@ public class Competitor {
         this.scores = scores;
     }
 
+    public void getFullDetails() {
+        System.out.printf("Competitor number %d, name %s.%n",
+                competitorNumber, name.getFullName());
+
+        System.out.printf("%s is a %s aged %d and received these scores: %s%n",
+                name.getFirstName(), category, calculateAge(), Arrays.toString(scores));
+
+        System.out.printf("This gives him/her an overall score of %.2f.%n", calculateOverallScore());
+    }
+
+    private int calculateAge() {
+        int currentYear = java.time.Year.now().getValue();
+        int birthYear = Integer.parseInt(dateOfBirth.substring(0, 4));
+        return currentYear - birthYear;
+    }
+
+    private double calculateOverallScore() {
+        int sum = Arrays.stream(scores).sum();
+        return (double) sum / scores.length;
+    }
+
 }
