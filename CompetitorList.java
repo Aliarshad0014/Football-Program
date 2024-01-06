@@ -167,4 +167,21 @@ public class CompetitorList {
             e.printStackTrace();
         }
     }
+
+    public void generateCompetitorList() {
+
+        // Print competitor details
+        for (Competitor competitor : competitors) {
+            System.out.println("Competitor Number: " + competitor.getCompetitorNumber());
+            System.out.println("Name: " + competitor.getName().getFullName());
+            System.out.println("Email: " + competitor.getEmail());
+            System.out.println("Date of Birth: " + competitor.getDateOfBirth());
+            System.out.println("Category: " + competitor.getCategory());
+            System.out.print("Scores: ");
+            for (int score : competitor.getScores()) {
+                System.out.print(score + " ");
+            }
+            System.out.println("\n");
+        }
+    }
 }
