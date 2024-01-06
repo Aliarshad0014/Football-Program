@@ -5,11 +5,11 @@ Competitor Number    First Name      Last Name       Email                      
 3                    Michael         Johnson         michaeljohnson@example.com     1995-08-10      Men's Singles        5 2 4 3 5           
 4                    Emily           White           emilywhite@example.com         1992-03-25      Women's Singles      2 5 3 4 2           
 5                    Chris           Williams        chriswilliams@example.com      1987-06-08      Men's Singles        4 3 5 2 4           
-6                    Sophia          Brown           sophiabrown@example.com        1993-09-18      Women's Singles      3 4 3 5 2           
-7                    Matthew         Miller          matthewmiller@example.com      1989-11-30      Men's Singles        1 2 4 3 5           
-8                    Olivia          Jones           oliviajones@example.com        1996-04-12      Women's Singles      2 5 3 4 2           
+6                    Updated         Competitor      updated@example.com            1990-01-01      Updated Category     5 4 3 2 1           
+7                    Matthew         Miller          matthewmiller@example.com      1989-11-30      Men's Singles        5 2 4 3 5           
 9                    Alex            Anderson        alexanderson@example.com       1985-07-24      Men's Singles        4 3 5 2 4           
 10                   Emma            Thomas          emmathomas@example.com         1991-02-05      Women's Singles      3 4 3 5 2           
+14                   John            Doe             john.doe@example.com           1990-01-01      Men's Singles        1 2 3 4 5           
 
 Competitor with the Highest Overall Score:
 Competitor Number: 3
@@ -22,8 +22,8 @@ Weighted Average: 5.13
 Average Ignoring Extremes: 4.00
 
 Score Frequency Report:
-Score: 1, Frequency: 1
-Score: 2, Frequency: 12
-Score: 3, Frequency: 13
+Score: 1, Frequency: 2
+Score: 2, Frequency: 11
+Score: 3, Frequency: 12
 Score: 4, Frequency: 13
-Score: 5, Frequency: 11
+Score: 5, Frequency: 12

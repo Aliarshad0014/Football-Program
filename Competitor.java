@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Competitor {
     private int competitorNumber;
     private Name name;
@@ -40,4 +42,29 @@ public class Competitor {
     public int[] getScores() {
         return scores;
     }
+
+    public void setCompetitorNumber(int competitorNumber) {
+        this.competitorNumber = competitorNumber;
+    }
+
+    public void setName(Name name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setScores(int[] scores) {
+        this.scores = scores;
+    }
+
 }
