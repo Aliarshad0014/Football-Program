@@ -4,6 +4,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import javax.swing.JTextArea;
 
 public class CompetitorList {
 
@@ -168,20 +171,27 @@ public class CompetitorList {
         }
     }
 
-    public void generateCompetitorList() {
-
-        // Print competitor details
+    public StringBuilder getCompetitorsInfo() {
+        StringBuilder competitorsInfo = new StringBuilder();
         for (Competitor competitor : competitors) {
-            System.out.println("Competitor Number: " + competitor.getCompetitorNumber());
-            System.out.println("Name: " + competitor.getName().getFullName());
-            System.out.println("Email: " + competitor.getEmail());
-            System.out.println("Date of Birth: " + competitor.getDateOfBirth());
-            System.out.println("Category: " + competitor.getCategory());
-            System.out.print("Scores: ");
-            for (int score : competitor.getScores()) {
-                System.out.print(score + " ");
-            }
-            System.out.println("\n");
+            competitorsInfo.append("Competitor Number: ").append(competitor.getCompetitorNumber()).append("\n");
+            competitorsInfo.append("Name: ").append(competitor.getName().getFullName()).append("\n");
+            competitorsInfo.append("Email: ").append(competitor.getEmail()).append("\n");
+            competitorsInfo.append("Date of Birth: ").append(competitor.getDateOfBirth()).append("\n");
+            competitorsInfo.append("Category: ").append(competitor.getCategory()).append("\n");
+            competitorsInfo.append("Scores: ").append(Arrays.toString(competitor.getScores())).append("\n");
+            competitorsInfo.append("\n");
         }
+        return competitorsInfo;
+    }
+
+    // New method to print competitors to the console
+    public void printCompetitorsToConsole() {
+        System.out.println(getCompetitorsInfo().toString());
+    }
+
+    // New method to write competitors to a JTextArea
+    public void writeCompetitorsToTextArea(JTextArea textArea) {
+        textArea.setText(getCompetitorsInfo().toString());
     }
 }

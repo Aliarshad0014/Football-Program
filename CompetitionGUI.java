@@ -46,20 +46,8 @@ public class CompetitionGUI extends JFrame {
     }
 
     private void displayCompetitors() {
-        // Fetch competitors from CompetitorList
-        StringBuilder competitorsInfo = new StringBuilder();
-        for (Competitor competitor : competitorList.getCompetitors()) {
-            competitorsInfo.append("Competitor Number: ").append(competitor.getCompetitorNumber()).append("\n");
-            competitorsInfo.append("Name: ").append(competitor.getName().getFullName()).append("\n");
-            competitorsInfo.append("Email: ").append(competitor.getEmail()).append("\n");
-            competitorsInfo.append("Date of Birth: ").append(competitor.getDateOfBirth()).append("\n");
-            competitorsInfo.append("Category: ").append(competitor.getCategory()).append("\n");
-            competitorsInfo.append("Scores: ").append(Arrays.toString(competitor.getScores())).append("\n");
-            competitorsInfo.append("\n");
-        }
-
-        // Display competitors in JTextArea
-        competitorsTextArea.setText(competitorsInfo.toString());
+        // Use the new method from CompetitorList to display competitors
+        competitorList.writeCompetitorsToTextArea(competitorsTextArea);
     }
 
     private void generateCompetitionReport() {

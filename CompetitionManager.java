@@ -28,7 +28,7 @@ public class CompetitionManager {
 
     public static void generateCompetitorList() {
         CompetitorList competitorList = new CompetitorList("Competitors.csv");
-        competitorList.generateCompetitorList();
+        competitorList.printCompetitorsToConsole();
     }
 
     public static void testOfficialsMethods() {
