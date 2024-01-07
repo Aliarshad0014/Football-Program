@@ -24,11 +24,20 @@ public class CompetitionGUI extends JFrame {
             }
         });
 
+        JButton generateReportButton = new JButton("Generate Competition Report");
+        generateReportButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                generateCompetitionReport();
+            }
+        });
+
         competitorsTextArea = new JTextArea(20, 50);
         JScrollPane scrollPane = new JScrollPane(competitorsTextArea);
 
         JPanel panel = new JPanel();
         panel.add(viewCompetitorsButton);
+        panel.add(generateReportButton);
         panel.add(scrollPane);
 
         getContentPane().add(panel);
@@ -51,6 +60,14 @@ public class CompetitionGUI extends JFrame {
 
         // Display competitors in JTextArea
         competitorsTextArea.setText(competitorsInfo.toString());
+    }
+
+    private void generateCompetitionReport() {
+        // Create an instance of the Result class
+        Result result = new Result(competitorList.getCompetitors());
+
+        // Use the writeReportToTextArea method to display the report in the JTextArea
+        result.writeReportToTextArea(competitorsTextArea);
     }
 
     public void launchGUI() {

@@ -21,7 +21,7 @@ public class CompetitionManager {
         CompetitorList competitorList = new CompetitorList("Competitors.csv");
         ArrayList<Competitor> competitors = competitorList.getCompetitors();
         Result result = new Result(competitors);
-        result.generateFullReport(fileName);
+        result.writeReportToFile(fileName);
         System.out.println("Competition results report generated successfully. Check"
                 + fileName);
     }
