@@ -1,9 +1,11 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 public class CompetitionGUI extends JFrame {
     private CompetitorList competitorList;
+    private JTextArea competitorsTextArea;
 
     public CompetitionGUI(CompetitorList competitorList) {
         this.competitorList = competitorList;
@@ -22,8 +24,12 @@ public class CompetitionGUI extends JFrame {
             }
         });
 
+        competitorsTextArea = new JTextArea(20, 50);
+        JScrollPane scrollPane = new JScrollPane(competitorsTextArea);
+
         JPanel panel = new JPanel();
         panel.add(viewCompetitorsButton);
+        panel.add(scrollPane);
 
         getContentPane().add(panel);
         pack();
@@ -31,7 +37,20 @@ public class CompetitionGUI extends JFrame {
     }
 
     private void displayCompetitors() {
-        competitorList.generateCompetitorList(); // Using the existing method
+        // Fetch competitors from CompetitorList
+        StringBuilder competitorsInfo = new StringBuilder();
+        for (Competitor competitor : competitorList.getCompetitors()) {
+            competitorsInfo.append("Competitor Number: ").append(competitor.getCompetitorNumber()).append("\n");
+            competitorsInfo.append("Name: ").append(competitor.getName().getFullName()).append("\n");
+            competitorsInfo.append("Email: ").append(competitor.getEmail()).append("\n");
+            competitorsInfo.append("Date of Birth: ").append(competitor.getDateOfBirth()).append("\n");
+            competitorsInfo.append("Category: ").append(competitor.getCategory()).append("\n");
+            competitorsInfo.append("Scores: ").append(Arrays.toString(competitor.getScores())).append("\n");
+            competitorsInfo.append("\n");
+        }
+
+        // Display competitors in JTextArea
+        competitorsTextArea.setText(competitorsInfo.toString());
     }
 
     public void launchGUI() {
