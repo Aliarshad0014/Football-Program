@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 
 import javax.swing.JTextArea;
 
@@ -171,27 +172,42 @@ public class CompetitorList {
         }
     }
 
-    public StringBuilder getCompetitorsInfo() {
+    // Enhanced method to get competitors' information in a tabular format
+    public StringBuilder getCompetitorsInfoTable() {
         StringBuilder competitorsInfo = new StringBuilder();
+        // Table header
+        competitorsInfo.append(String.format("%-20s %-15s %-15s %-30s %-15s %-20s %-20s\n",
+                "Competitor Number", "First Name", "Last Name", "Email", "Date of Birth", "Category", "Scores"));
         for (Competitor competitor : competitors) {
-            competitorsInfo.append("Competitor Number: ").append(competitor.getCompetitorNumber()).append("\n");
-            competitorsInfo.append("Name: ").append(competitor.getName().getFullName()).append("\n");
-            competitorsInfo.append("Email: ").append(competitor.getEmail()).append("\n");
-            competitorsInfo.append("Date of Birth: ").append(competitor.getDateOfBirth()).append("\n");
-            competitorsInfo.append("Category: ").append(competitor.getCategory()).append("\n");
-            competitorsInfo.append("Scores: ").append(Arrays.toString(competitor.getScores())).append("\n");
-            competitorsInfo.append("\n");
+            competitorsInfo.append(String.format("%-20s %-15s %-15s %-30s %-15s %-20s %-20s\n",
+                    competitor.getCompetitorNumber(),
+                    competitor.getName().getFirstName(),
+                    competitor.getName().getLastName(),
+                    competitor.getEmail(),
+                    competitor.getDateOfBirth(),
+                    competitor.getCategory(),
+                    Arrays.toString(competitor.getScores())));
         }
         return competitorsInfo;
     }
 
     // New method to print competitors to the console
     public void printCompetitorsToConsole() {
-        System.out.println(getCompetitorsInfo().toString());
+        System.out.println(getCompetitorsInfoTable().toString());
     }
 
     // New method to write competitors to a JTextArea
     public void writeCompetitorsToTextArea(JTextArea textArea) {
-        textArea.setText(getCompetitorsInfo().toString());
+        textArea.setText(getCompetitorsInfoTable().toString());
+    }
+
+    // Method to sort competitors by competitor number
+    public void sortCompetitorsByNumber() {
+        competitors.sort(Comparator.comparingInt(Competitor::getCompetitorNumber));
+    }
+
+    // Method to sort competitors alphabetically by first name
+    public void sortCompetitorsAlphabetically() {
+        competitors.sort(Comparator.comparing(competitor -> competitor.getName().getFirstName()));
     }
 }

@@ -24,6 +24,22 @@ public class CompetitionGUI extends JFrame {
             }
         });
 
+        JButton sortCompetitorsByNumberButton = new JButton("View Competitors Sorted By Number");
+        sortCompetitorsByNumberButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sortByCompetitorNumber();
+            }
+        });
+
+        JButton sortCompetitorsAlbhabeticallyButton = new JButton("View Competitors Sorted Alphabetically");
+        sortCompetitorsAlbhabeticallyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sortByAlphabeticalOrder();
+            }
+        });
+
         JButton generateReportButton = new JButton("Generate Competition Report");
         generateReportButton.addActionListener(new ActionListener() {
             @Override
@@ -37,6 +53,8 @@ public class CompetitionGUI extends JFrame {
 
         JPanel panel = new JPanel();
         panel.add(viewCompetitorsButton);
+        panel.add(sortCompetitorsByNumberButton);
+        panel.add(sortCompetitorsAlbhabeticallyButton);
         panel.add(generateReportButton);
         panel.add(scrollPane);
 
@@ -46,8 +64,23 @@ public class CompetitionGUI extends JFrame {
     }
 
     private void displayCompetitors() {
-        // Use the new method from CompetitorList to display competitors
-        competitorList.writeCompetitorsToTextArea(competitorsTextArea);
+        // Use the new method from CompetitorList to display competitors in a tabular
+        // format
+        competitorsTextArea.setText(competitorList.getCompetitorsInfoTable().toString());
+    }
+
+    private void sortByCompetitorNumber() {
+        // Use the new sorting method in CompetitorList
+        competitorList.sortCompetitorsByNumber();
+        // Display sorted competitors in JTextArea
+        displayCompetitors();
+    }
+
+    private void sortByAlphabeticalOrder() {
+        // Use the new sorting method in CompetitorList
+        competitorList.sortCompetitorsAlphabetically();
+        // Display sorted competitors in JTextArea
+        displayCompetitors();
     }
 
     private void generateCompetitionReport() {
