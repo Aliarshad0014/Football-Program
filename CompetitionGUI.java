@@ -64,11 +64,27 @@ public class CompetitionGUI extends JFrame {
             }
         });
 
-        JButton editDetailsButton = new JButton("Edit Details");
+        JButton editDetailsButton = new JButton("Amend Competitor Details");
         editDetailsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 editDetailsDialog();
+            }
+        });
+
+        JButton registerCompetitorButton = new JButton("Register Competitor");
+        registerCompetitorButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                registerCompetitor();
+            }
+        });
+
+        JButton removeNonCompliantButton = new JButton("Remove Non-Compliant Competitor");
+        removeNonCompliantButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                removeNonCompliantCompetitor();
             }
         });
 
@@ -84,6 +100,8 @@ public class CompetitionGUI extends JFrame {
         panel.add(scrollPane);
         panel.add(recordScoresButton);
         panel.add(editDetailsButton);
+        panel.add(registerCompetitorButton);
+        panel.add(removeNonCompliantButton);
 
         getContentPane().add(panel);
         pack();
@@ -194,4 +212,82 @@ public class CompetitionGUI extends JFrame {
         return new Competitor(0, name, email, dateOfBirth, category, scores);
     }
 
+    private void registerCompetitor() {
+        // Create a dialog box to input competitor details
+        JTextField competitorNumberField = new JTextField();
+        JTextField firstNameField = new JTextField();
+        JTextField lastNameField = new JTextField();
+        JTextField emailField = new JTextField();
+        JTextField dobField = new JTextField();
+        JTextField categoryField = new JTextField();
+        JTextField score1Field = new JTextField();
+        JTextField score2Field = new JTextField();
+        JTextField score3Field = new JTextField();
+        JTextField score4Field = new JTextField();
+        JTextField score5Field = new JTextField();
+
+        Object[] message = {
+                "Competitor Number:", competitorNumberField,
+                "First Name:", firstNameField,
+                "Last Name:", lastNameField,
+                "Email:", emailField,
+                "Date of Birth:", dobField,
+                "Category:", categoryField,
+                "Score 1:", score1Field,
+                "Score 2:", score2Field,
+                "Score 3:", score3Field,
+                "Score 4:", score4Field,
+                "Score 5:", score5Field
+        };
+
+        int option = JOptionPane.showConfirmDialog(null, message, "Register Competitor", JOptionPane.OK_CANCEL_OPTION);
+
+        if (option == JOptionPane.OK_OPTION) {
+            try {
+                // Parse input values
+                int competitorNumber = Integer.parseInt(competitorNumberField.getText());
+                String firstName = firstNameField.getText();
+                String lastName = lastNameField.getText();
+                String email = emailField.getText();
+                String dob = dobField.getText();
+                String category = categoryField.getText();
+                int[] scores = {
+                        Integer.parseInt(score1Field.getText()),
+                        Integer.parseInt(score2Field.getText()),
+                        Integer.parseInt(score3Field.getText()),
+                        Integer.parseInt(score4Field.getText()),
+                        Integer.parseInt(score5Field.getText())
+                };
+
+                // Create a new Competitor object
+                Competitor newCompetitor = new Competitor(competitorNumber,
+                        new Name(firstName, lastName),
+                        email, dob, category, scores);
+
+                // Register the competitor
+                competitorList.addCompetitorToCSV(newCompetitor);
+
+                // Refresh the displayed competitors
+                displayCompetitors();
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null,
+                        "Invalid input. Please enter numeric values for Competitor Number and Scores.",
+                        "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void removeNonCompliantCompetitor() {
+        // Prompt user for competitor ID
+        String idInput = JOptionPane.showInputDialog("Enter Competitor ID to Remove:");
+        try {
+            int competitorID = Integer.parseInt(idInput);
+
+            // Remove non-compliant competitor
+            competitorList.removeCompetitorByIdFromCSV(competitorID);
+            JOptionPane.showMessageDialog(null, "Competitor removed successfully.");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Invalid Competitor ID. Please enter a valid number.");
+        }
+    }
 }

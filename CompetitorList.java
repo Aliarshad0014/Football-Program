@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
 public class CompetitorList {
@@ -73,6 +74,16 @@ public class CompetitorList {
 
     // Add competitor to CSV file and update the data
     public void addCompetitorToCSV(Competitor newCompetitor) {
+        // Check if the email already exists in the same category
+        if (competitors.stream().anyMatch(c -> c.getEmail().equalsIgnoreCase(newCompetitor.getEmail())
+                && c.getCategory().equalsIgnoreCase(newCompetitor.getCategory()))) {
+            JOptionPane.showMessageDialog(null,
+                    "Email already exists. Please register in a different category.",
+                    "Duplicate Email",
+                    JOptionPane.ERROR_MESSAGE);
+            return; // Do not proceed with registration
+        }
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(competitorsFile, true))) {
             // Append new competitor details to the CSV file
             writer.write(String.format("%d,%s,%s,%s,%s,%s,%d,%d,%d,%d,%d\n",
