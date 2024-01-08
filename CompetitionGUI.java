@@ -22,7 +22,7 @@ public class CompetitionGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 displayCompetitors();
             }
-        });
+        }); //
 
         JButton sortCompetitorsByNumberButton = new JButton("View Competitors Sorted By Number");
         sortCompetitorsByNumberButton.addActionListener(new ActionListener() {
