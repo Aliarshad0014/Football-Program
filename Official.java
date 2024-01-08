@@ -28,7 +28,7 @@ public class Official {
 
     // Amend competitor details
     public void amendCompetitorDetails(CompetitorList competitorList, int id, Competitor newDetails) {
-        competitorList.editCompetitorDetailsInCSV(id, newDetails);
+        competitorList.editCompetitorDetailsById(id, newDetails);
     }
 
     // Register competitor on arrival

@@ -48,6 +48,30 @@ public class CompetitionGUI extends JFrame {
             }
         });
 
+        JButton viewScoresByIdButton = new JButton("View Scores by ID");
+        viewScoresByIdButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                displayScoresById();
+            }
+        });
+
+        JButton recordScoresButton = new JButton("Record Scores");
+        recordScoresButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                recordScoresDialog();
+            }
+        });
+
+        JButton editDetailsButton = new JButton("Edit Details");
+        editDetailsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                editDetailsDialog();
+            }
+        });
+
         competitorsTextArea = new JTextArea(20, 50);
         JScrollPane scrollPane = new JScrollPane(competitorsTextArea);
 
@@ -56,7 +80,10 @@ public class CompetitionGUI extends JFrame {
         panel.add(sortCompetitorsByNumberButton);
         panel.add(sortCompetitorsAlbhabeticallyButton);
         panel.add(generateReportButton);
+        panel.add(viewScoresByIdButton);
         panel.add(scrollPane);
+        panel.add(recordScoresButton);
+        panel.add(editDetailsButton);
 
         getContentPane().add(panel);
         pack();
@@ -99,4 +126,72 @@ public class CompetitionGUI extends JFrame {
             }
         });
     }
+
+    private void displayScoresById() {
+        String input = JOptionPane.showInputDialog("Enter Competitor ID:");
+        try {
+            int competitorID = Integer.parseInt(input);
+            int[] scores = competitorList.getScoresById(competitorID);
+            if (scores != null) {
+                competitorsTextArea.setText(Arrays.toString(scores));
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Invalid Competitor ID. Please enter a number.");
+        }
+    }
+
+    private void recordScoresDialog() {
+        String competitorIDString = JOptionPane.showInputDialog("Enter Competitor ID:");
+        int competitorID = Integer.parseInt(competitorIDString);
+
+        Competitor competitor = competitorList.getCompetitorById(competitorID);
+        if (competitor != null) {
+            String scoresString = JOptionPane.showInputDialog("Enter 5 scores separated by commas:");
+            String[] scoresArray = scoresString.split(",");
+            int[] newScores = Arrays.stream(scoresArray).mapToInt(Integer::parseInt).toArray();
+
+            competitorList.recordScoresById(competitorID, newScores);
+            displayCompetitors(); // Refresh the displayed competitors
+        } else {
+            JOptionPane.showMessageDialog(this, "Competitor not found.");
+        }
+    }
+
+    private void editDetailsDialog() {
+        String competitorIDString = JOptionPane.showInputDialog("Enter Competitor ID:");
+        int competitorID = Integer.parseInt(competitorIDString);
+
+        Competitor competitor = competitorList.getCompetitorById(competitorID);
+        if (competitor != null) {
+            // Create a new Competitor with updated details
+            Competitor newDetails = getCompetitorDetailsFromDialog();
+
+            // Edit competitor details using the method in CompetitorList
+            competitorList.editCompetitorDetailsById(competitorID, newDetails);
+            displayCompetitors(); // Refresh the displayed competitors
+        } else {
+            JOptionPane.showMessageDialog(this, "Competitor not found.");
+        }
+    }
+
+    private Competitor getCompetitorDetailsFromDialog() {
+        // Input fields
+        String firstName = JOptionPane.showInputDialog("Enter First Name:");
+        String lastName = JOptionPane.showInputDialog("Enter Last Name:");
+        String email = JOptionPane.showInputDialog("Enter Email:");
+        String dateOfBirth = JOptionPane.showInputDialog("Enter Date of Birth:");
+        String category = JOptionPane.showInputDialog("Enter Category:");
+
+        // Scores input
+        int[] scores = new int[5];
+        for (int i = 0; i < 5; i++) {
+            String scoreInput = JOptionPane.showInputDialog("Enter Score " + (i + 1) + ":");
+            scores[i] = Integer.parseInt(scoreInput);
+        }
+
+        // Create a new Competitor object with the entered details
+        Name name = new Name(firstName, lastName);
+        return new Competitor(0, name, email, dateOfBirth, category, scores);
+    }
+
 }

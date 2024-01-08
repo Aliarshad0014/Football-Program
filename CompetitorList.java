@@ -111,36 +111,30 @@ public class CompetitorList {
     }
 
     // Edit competitor's details in CSV file and update the data
-    public void editCompetitorDetailsInCSV(int competitorID, Competitor newDetails) {
-        // Get the competitor to be edited
+    public void editCompetitorDetailsById(int competitorID, Competitor newDetails) {
         Competitor competitorToEdit = getCompetitorById(competitorID);
 
         if (competitorToEdit != null) {
-            // Update the competitor's details in the ArrayList
             competitorToEdit.setName(newDetails.getName());
             competitorToEdit.setEmail(newDetails.getEmail());
             competitorToEdit.setDateOfBirth(newDetails.getDateOfBirth());
             competitorToEdit.setCategory(newDetails.getCategory());
             competitorToEdit.setScores(newDetails.getScores());
 
-            // Write the updated data to the CSV file
-            writeCompetitorsToCSV();
+            writeCompetitorsToCSV(); // Update data in the CSV file
+        } else {
+            System.out.println("Competitor not found.");
         }
     }
 
-    public void recordCompetitorScoresById(int competitorID, int[] scores) {
-        // Get the competitor to be recorded
+    public void recordScoresById(int competitorID, int[] newScores) {
         Competitor competitorToRecord = getCompetitorById(competitorID);
 
         if (competitorToRecord != null) {
-            // Update the competitor's scores
-            int[] currentScores = competitorToRecord.getScores();
-            for (int i = 0; i < currentScores.length; i++) {
-                currentScores[i] = scores[i];
-            }
-
-            // Update the data in the CSV file
-            writeCompetitorsToCSV();
+            competitorToRecord.setScores(newScores);
+            writeCompetitorsToCSV(); // Update data in the CSV file
+        } else {
+            System.out.println("Competitor not found.");
         }
     }
 
@@ -169,6 +163,17 @@ public class CompetitorList {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public int[] getScoresById(int competitorID) {
+        Competitor competitor = getCompetitorById(competitorID);
+        if (competitor != null) {
+            System.out.println("Scores for Competitor: " + competitor.getName().getFullName());
+            return competitor.getScores();
+        } else {
+            System.out.println("Competitor not found.");
+            return null;
         }
     }
 

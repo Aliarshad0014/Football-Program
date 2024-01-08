@@ -48,6 +48,6 @@ public class Staff {
 
     // Record competitor scores by ID
     public void recordCompetitorScoresById(CompetitorList competitorList, int competitorID, int[] scores) {
-        competitorList.recordCompetitorScoresById(competitorID, scores);
+        competitorList.recordScoresById(competitorID, scores);
     }
 }

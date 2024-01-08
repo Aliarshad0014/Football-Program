@@ -67,14 +67,25 @@ public class Competitor {
         this.scores = scores;
     }
 
-    public void getFullDetails() {
-        System.out.printf("Competitor number %d, name %s.%n",
-                competitorNumber, name.getFullName());
+    public String getFullDetails() {
+        StringBuilder details = new StringBuilder();
+        details.append(String.format("Competitor number %d, name %s.%n",
+                competitorNumber, name.getFullName()));
 
-        System.out.printf("%s is a %s aged %d and received these scores: %s%n",
-                name.getFirstName(), category, calculateAge(), Arrays.toString(scores));
+        details.append(String.format("%s is a %s aged %d and received these scores: %s%n",
+                name.getFirstName(), category, calculateAge(), Arrays.toString(scores)));
 
-        System.out.printf("This gives him/her an overall score of %.2f.%n", calculateOverallScore());
+        details.append(String.format("This gives him/her an overall score of %.2f.%n", calculateOverallScore()));
+
+        return details.toString();
+    }
+
+    public void printToConsole() {
+        System.out.println(getFullDetails());
+    }
+
+    public void appendToTextArea(StringBuilder builder) {
+        builder.append(getFullDetails()).append("\n");
     }
 
     private int calculateAge() {
