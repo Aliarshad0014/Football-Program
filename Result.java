@@ -172,4 +172,38 @@ public class Result {
         return sb.toString().trim();
     }
 
+    public String generateSummaryReportAsString() {
+        StringBuilder summaryReport = new StringBuilder();
+        summaryReport.append("Summary Report:\n");
+
+        // Count of competitors
+        int totalCompetitors = competitors.size();
+        summaryReport.append("There are ").append(totalCompetitors).append(" competitors\n");
+
+        // Competitor with the highest score
+        Competitor highestScorer = getCompetitorWithHighestOverallScore(competitors);
+        summaryReport.append("The person with the highest score is ")
+                .append(highestScorer.getName().getFullName())
+                .append(" with a score of ")
+                .append(calculateOverallScore(highestScorer))
+                .append(".\n");
+
+        // Frequency report
+        summaryReport.append("The following individual scores were awarded:\n");
+        Map<Integer, Integer> scoreFrequency = calculateScoreFrequency(competitors);
+        summaryReport.append(String.format("%-10s %-10s\n", "Score :", "Frequency:"));
+        for (Map.Entry<Integer, Integer> entry : scoreFrequency.entrySet()) {
+            summaryReport.append(String.format("%-10d %-10d\n", entry.getKey(), entry.getValue()));
+        }
+
+        return summaryReport.toString();
+    }
+
+    public void printSummaryToConsole() {
+        System.out.println(generateSummaryReportAsString());
+    }
+
+    public void displaySummaryInGUI(JTextArea textArea) {
+        textArea.setText(generateSummaryReportAsString());
+    }
 }

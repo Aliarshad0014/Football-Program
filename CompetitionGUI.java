@@ -88,6 +88,14 @@ public class CompetitionGUI extends JFrame {
             }
         });
 
+        JButton generateSummaryButton = new JButton("Generate Summary Report");
+        generateSummaryButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                displaySummaryReport();
+            }
+        });
+
         competitorsTextArea = new JTextArea(20, 50);
         JScrollPane scrollPane = new JScrollPane(competitorsTextArea);
 
@@ -102,10 +110,20 @@ public class CompetitionGUI extends JFrame {
         panel.add(editDetailsButton);
         panel.add(registerCompetitorButton);
         panel.add(removeNonCompliantButton);
+        panel.add(generateSummaryButton);
 
         getContentPane().add(panel);
         pack();
         setLocationRelativeTo(null); // Center the frame
+    }
+
+    public void launchGUI() {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                setVisible(true);
+            }
+        });
     }
 
     private void displayCompetitors() {
@@ -136,13 +154,9 @@ public class CompetitionGUI extends JFrame {
         result.writeReportToTextArea(competitorsTextArea);
     }
 
-    public void launchGUI() {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                setVisible(true);
-            }
-        });
+    private void displaySummaryReport() {
+        Result result = new Result(competitorList.getCompetitors());
+        result.displaySummaryInGUI(competitorsTextArea);
     }
 
     private void displayScoresById() {
