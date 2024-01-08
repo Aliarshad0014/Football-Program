@@ -135,24 +135,4 @@ public class StaffPanel extends JFrame {
             JOptionPane.showMessageDialog(this, "Competitor not found.");
         }
     }
-
-    private Competitor getCompetitorDetailsFromDialog() {
-        // Input fields
-        String firstName = JOptionPane.showInputDialog("Enter First Name:");
-        String lastName = JOptionPane.showInputDialog("Enter Last Name:");
-        String email = JOptionPane.showInputDialog("Enter Email:");
-        String dateOfBirth = JOptionPane.showInputDialog("Enter Date of Birth:");
-        String category = JOptionPane.showInputDialog("Enter Category:");
-
-        // Scores input
-        int[] scores = new int[5];
-        for (int i = 0; i < 5; i++) {
-            String scoreInput = JOptionPane.showInputDialog("Enter Score " + (i + 1) + ":");
-            scores[i] = Integer.parseInt(scoreInput);
-        }
-
-        // Create a new Competitor object with the entered details
-        Name name = new Name(firstName, lastName);
-        return new Competitor(0, name, email, dateOfBirth, category, scores);
-    }
 }
