@@ -25,6 +25,7 @@ public class StaffPanel extends JFrame {
         this.competitorList = competitorList;
         initializeComponents();
     }
+    //.
 
     private void initializeComponents() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
