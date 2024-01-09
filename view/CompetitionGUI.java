@@ -1,4 +1,13 @@
+package view;
+
 import javax.swing.*;
+
+import controller.AudiencePanel;
+import controller.CompetitorList;
+import controller.CompetitorPanel;
+import controller.OfficialPanel;
+import controller.StaffPanel;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

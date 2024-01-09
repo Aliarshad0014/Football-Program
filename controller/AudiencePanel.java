@@ -1,3 +1,5 @@
+package controller;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -6,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
+
+import controller.CompetitorList;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -26,12 +30,9 @@ public class AudiencePanel extends JFrame {
         Font buttonFont = new Font("Arial", Font.PLAIN, 12);
 
         JButton viewCompetitorsButton = createButton("View Competitors", buttonFont, e -> displayCompetitors());
-        JButton sortCompetitorsByNumberButton = createButton("Sort by Number", buttonFont,
-                e -> sortByCompetitorNumber());
-        JButton sortCompetitorsAlphabeticallyButton = createButton("Sort Alphabetically", buttonFont,
-                e -> sortByAlphabeticalOrder());
-        JButton generateReportButton = createButton("View Competition Report", buttonFont,
+        JButton generateReportButton = createButton("View Competition Results", buttonFont,
                 e -> generateCompetitionReport());
+        JButton generateSummaryButton = createButton("View Result Summary", buttonFont, e -> displaySummaryReport());
 
         competitorsTextArea = new JTextArea(20, 50);
         JScrollPane scrollPane = new JScrollPane(competitorsTextArea);
@@ -39,9 +40,8 @@ public class AudiencePanel extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.add(viewCompetitorsButton);
-        panel.add(sortCompetitorsByNumberButton);
-        panel.add(sortCompetitorsAlphabeticallyButton);
         panel.add(generateReportButton);
+        panel.add(generateSummaryButton);
         panel.add(Box.createVerticalGlue()); // Add vertical glue for alignment
         panel.add(scrollPane);
 
@@ -72,25 +72,11 @@ public class AudiencePanel extends JFrame {
         competitorsTextArea.setText(competitorList.getCompetitorsInfoTable().toString());
     }
 
-    private void sortByCompetitorNumber() {
-        // Use the new sorting method in CompetitorList
-        competitorList.sortCompetitorsByNumber();
-        // Display sorted competitors in JTextArea
-        displayCompetitors();
-    }
-
-    private void sortByAlphabeticalOrder() {
-        // Use the new sorting method in CompetitorList
-        competitorList.sortCompetitorsAlphabetically();
-        // Display sorted competitors in JTextArea
-        displayCompetitors();
-    }
-
     private void generateCompetitionReport() {
-        // Create an instance of the Result class
-        Result result = new Result(competitorList.getCompetitors());
+        competitorList.writeReportToTextArea(competitorsTextArea);
+    }
 
-        // Use the writeReportToTextArea method to display the report in the JTextArea
-        result.writeReportToTextArea(competitorsTextArea);
+    private void displaySummaryReport() {
+        competitorList.displaySummaryInGUI(competitorsTextArea);
     }
 }

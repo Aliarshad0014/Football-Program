@@ -1,3 +1,5 @@
+package controller;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -8,34 +10,38 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
+import controller.CompetitorList;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 
-public class StaffPanel extends JFrame {
+public class CompetitorPanel extends JFrame {
     private CompetitorList competitorList;
     private JTextArea competitorsTextArea;
 
-    public StaffPanel(CompetitorList competitorList) {
+    public CompetitorPanel(CompetitorList competitorList) {
         this.competitorList = competitorList;
         initializeComponents();
     }
 
     private void initializeComponents() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Staff Panel");
+        setTitle("Competitor Panel");
 
         Font buttonFont = new Font("Arial", Font.PLAIN, 12);
 
         JButton viewCompetitorsButton = createButton("View Competitors", buttonFont, e -> displayCompetitors());
-        JButton sortCompetitorsByNumberButton = createButton("Sort by Number", buttonFont,
+        JButton sortCompetitorsByNumberButton = createButton("Sort Competitors by Number", buttonFont,
                 e -> sortByCompetitorNumber());
-        JButton sortCompetitorsAlphabeticallyButton = createButton("Sort Alphabetically", buttonFont,
+        JButton sortCompetitorsAlphabeticallyButton = createButton("Sort Competitors Alphabetically", buttonFont,
                 e -> sortByAlphabeticalOrder());
-        JButton generateReportButton = createButton("Generate Report", buttonFont, e -> generateCompetitionReport());
+        JButton generateReportButton = createButton("View Competition Results", buttonFont,
+                e -> generateCompetitionReport());
         JButton viewScoresByIdButton = createButton("View Scores by ID", buttonFont, e -> displayScoresById());
-        JButton recordScoresButton = createButton("Record Scores", buttonFont, e -> recordScoresDialog());
-        JButton generateSummaryButton = createButton("Generate Summary", buttonFont, e -> displaySummaryReport());
+        JButton viewShortDetails = createButton("View Short Details", buttonFont, e -> displayShortDetails());
+        JButton viewFullDetails = createButton("View Full Details", buttonFont, e -> displayFullDetails());
+        JButton generateSummaryButton = createButton("View Result Summary", buttonFont, e -> displaySummaryReport());
 
         competitorsTextArea = new JTextArea(20, 50);
         JScrollPane scrollPane = new JScrollPane(competitorsTextArea);
@@ -47,7 +53,8 @@ public class StaffPanel extends JFrame {
         panel.add(sortCompetitorsAlphabeticallyButton);
         panel.add(generateReportButton);
         panel.add(viewScoresByIdButton);
-        panel.add(recordScoresButton);
+        panel.add(viewShortDetails);
+        panel.add(viewFullDetails);
         panel.add(generateSummaryButton);
         panel.add(Box.createVerticalGlue()); // Add vertical glue for alignment
         panel.add(scrollPane);
@@ -94,16 +101,11 @@ public class StaffPanel extends JFrame {
     }
 
     private void generateCompetitionReport() {
-        // Create an instance of the Result class
-        Result result = new Result(competitorList.getCompetitors());
-
-        // Use the writeReportToTextArea method to display the report in the JTextArea
-        result.writeReportToTextArea(competitorsTextArea);
+        competitorList.writeReportToTextArea(competitorsTextArea);
     }
 
     private void displaySummaryReport() {
-        Result result = new Result(competitorList.getCompetitors());
-        result.displaySummaryInGUI(competitorsTextArea);
+        competitorList.displaySummaryInGUI(competitorsTextArea);
     }
 
     private void displayScoresById() {
@@ -119,20 +121,23 @@ public class StaffPanel extends JFrame {
         }
     }
 
-    private void recordScoresDialog() {
-        String competitorIDString = JOptionPane.showInputDialog("Enter Competitor ID:");
-        int competitorID = Integer.parseInt(competitorIDString);
+    private void displayShortDetails() {
+        String input = JOptionPane.showInputDialog("Enter Competitor ID:");
+        try {
+            int competitorID = Integer.parseInt(input);
+            competitorsTextArea.setText(competitorList.getCompetitorById(competitorID).getShortDetails());
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Invalid Competitor ID. Please enter a number.");
+        }
+    }
 
-        Competitor competitor = competitorList.getCompetitorById(competitorID);
-        if (competitor != null) {
-            String scoresString = JOptionPane.showInputDialog("Enter 5 scores separated by commas:");
-            String[] scoresArray = scoresString.split(",");
-            int[] newScores = Arrays.stream(scoresArray).mapToInt(Integer::parseInt).toArray();
-
-            competitorList.recordScoresById(competitorID, newScores);
-            displayCompetitors(); // Refresh the displayed competitors
-        } else {
-            JOptionPane.showMessageDialog(this, "Competitor not found.");
+    private void displayFullDetails() {
+        String input = JOptionPane.showInputDialog("Enter Competitor ID:");
+        try {
+            int competitorID = Integer.parseInt(input);
+            competitorsTextArea.setText(competitorList.getCompetitorById(competitorID).getFullDetails());
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Invalid Competitor ID. Please enter a number.");
         }
     }
 }

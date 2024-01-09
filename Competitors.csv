@@ -1,12 +1,29 @@
 CompetitorNumber,FirstName,LastName,Email,DateOfBirth,Category,Score1,Score2,Score3,Score4,Score5
-1,John,Doe,johndoe@example.com,1990-05-15,Men's Singles,4,3,5,2,4
-2,Jane,Smith,janesmith@example.com,1988-12-20,Women's Singles,3,4,3,5,2
-3,Michael,Johnson,michaeljohnson@example.com,1995-08-10,Men's Singles,5,2,4,3,5
-4,Emily,White,emilywhite@example.com,1992-03-25,Women's Singles,2,5,3,4,2
 5,Chris,Williams,chriswilliams@example.com,1987-06-08,Men's Singles,4,3,5,2,4
-6,Sophia,Brown,sophiabrown@example.com,1993-09-18,Women's Singles,3,4,3,5,2
+1,John,Doe,johndoe@example.com,1990-05-15,Men's Singles,4,3,5,2,4
 7,Matthew,Miller,matthewmiller@example.com,1989-11-30,Men's Singles,5,2,4,3,5
+3,Michael,Johnson,michaeljohnson@example.com,1995-08-10,Men's Singles,5,2,4,3,5
 8,Olivia,Jones,oliviajones@example.com,1996-04-12,Women's Singles,2,5,3,4,2
-10,asjasl,asass,sasa,1212/12/12,wqwqw,1,1,1,1,11
-121,aksjkaksjs,kqjfnlqw,as@as.com,1212/12/12,hh,1,1,1,1,1
-12,121,1212,as@as.com,12,jhk,1,1,1,1,1
+6,Sophia,Brown,sophiabrown@example.com,1993-09-18,Women's Singles,3,4,3,5,2
+11,David,Smith,davidsmith@example.com,1988-07-20,Men's Singles,4,3,5,2,4
+9,Emma,White,emmawhite@example.com,1992-12-05,Women's Singles,5,2,4,3,5
+10,Aiden,Clark,aidenclark@example.com,1994-03-28,Men's Singles,5,2,4,3,5
+12,Isabella,Taylor,isabellataylor@example.com,1991-10-14,Women's Singles,2,5,3,4,2
+13,Liam,Harris,liamharris@example.com,1985-04-02,Men's Singles,3,4,3,5,2
+14,Abigail,Martin,abigailmartin@example.com,1997-08-25,Women's Singles,4,3,5,2,4
+15,James,Anderson,jamesanderson@example.com,1986-09-09,Men's Singles,5,2,4,3,5
+16,Ella,Moore,ellamoore@example.com,1998-11-22,Women's Singles,5,2,4,3,5
+17,Benjamin,Wilson,benjaminwilson@example.com,1993-01-17,Men's Singles,2,5,3,4,2
+18,Grace,Turner,graceturner@example.com,1989-06-30,Women's Singles,3,4,3,5,2
+19,Christopher,Evans,christopherevans@example.com,1996-07-08,Men's Singles,4,3,5,2,4
+20,Ava,Parker,avaparker@example.com,1990-03-12,Women's Singles,5,2,4,3,5
+21,Logan,Cooper,logancooper@example.com,1994-05-19,Men's Singles,5,2,4,3,5
+22,Sofia,Rossi,sofiarossi@example.com,1991-08-27,Women's Singles,2,5,3,4,2
+23,Nathan,Wright,nathanwright@example.com,1988-12-15,Men's Singles,3,4,3,5,2
+24,Chloe,Hill,chloehill@example.com,1997-04-07,Women's Singles,4,3,5,2,4
+25,Ethan,Baker,ethanbaker@example.com,1986-10-03,Men's Singles,5,2,4,3,5
+26,Emily,Campbell,emilycampbell@example.com,1992-02-28,Women's Singles,5,2,4,3,5
+27,Aiden,Green,aidengreen@example.com,1995-06-16,Men's Singles,2,5,3,4,2
+28,Hailey,Lopez,haileylopez@example.com,1987-03-09,Women's Singles,3,4,3,5,2
+29,Dylan,Hall,dylanhall@example.com,1996-09-24,Men's Singles,4,3,5,2,4
+30,Victoria,Rivera,victoriarivera@example.com,1990-11-11,Women's Singles,5,2,4,3,5

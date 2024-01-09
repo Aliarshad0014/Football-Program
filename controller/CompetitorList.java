@@ -1,3 +1,5 @@
+package controller;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -9,6 +11,10 @@ import java.util.Comparator;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
+
+import model.Competitor;
+import model.Name;
+import model.Result;
 
 public class CompetitorList {
 
@@ -33,6 +39,13 @@ public class CompetitorList {
                 }
 
                 String[] values = line.split(",");
+
+                // Validate the row before processing
+                if (!validateCompetitorData(values)) {
+                    System.out.println("Skipping invalid data: " + line);
+                    continue;
+                }
+
                 int competitorNumber = Integer.parseInt(values[0]);
                 String firstName = values[1];
                 String lastName = values[2];
@@ -56,6 +69,42 @@ public class CompetitorList {
         }
 
         return competitors;
+    }
+
+    public void writeReportToTextArea(JTextArea textArea) {
+        Result result = new Result(competitors, null, null, null, null);
+        String report = result.generateFullReportAsString();
+        textArea.setText(report);
+    }
+
+    public void writeShortReportToTextArea(JTextArea textArea) {
+        Result result = new Result(competitors, null, null, null, null);
+        String report = result.generateShortReportAsString();
+        textArea.setText(report);
+    }
+
+    public void displaySummaryInGUI(JTextArea textArea) {
+        Result result = new Result(competitors, null, null, null, null);
+        textArea.setText(result.generateSummaryReportAsString());
+    }
+
+    private boolean validateCompetitorData(String[] values) {
+        // Check if the row has exactly 10 values
+        if (values.length != 11) {
+            System.out.println("Invalid row: Expected 10 values, found " + values.length);
+            return false;
+        }
+
+        // Check if the last 5 values (scores) are between 0 and 5
+        for (int i = 6; i <= 10; i++) {
+            int score = Integer.parseInt(values[i]);
+            if (score < 0 || score > 5) {
+                System.out.println("Invalid score in row: " + score + ". Scores should be between 0 and 5.");
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public ArrayList<Competitor> getCompetitors() {

@@ -1,3 +1,7 @@
+package model;
+
+import controller.CompetitorList;
+
 public class Staff {
 
     private int ID;

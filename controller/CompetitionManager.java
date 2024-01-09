@@ -1,4 +1,13 @@
+package controller;
+
 import java.util.ArrayList;
+
+import model.Competitor;
+import model.Name;
+import model.Official;
+import model.Result;
+import model.Staff;
+import view.CompetitionGUI;
 
 public class CompetitionManager {
 
@@ -20,7 +29,7 @@ public class CompetitionManager {
     public static void generateReport(String fileName) {
         CompetitorList competitorList = new CompetitorList("Competitors.csv");
         ArrayList<Competitor> competitors = competitorList.getCompetitors();
-        Result result = new Result(competitors);
+        Result result = new Result(competitors, null, null, null, null);
         result.writeReportToFile(fileName);
         System.out.println("Competition results report generated successfully. Check"
                 + fileName);

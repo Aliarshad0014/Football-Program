@@ -1,3 +1,5 @@
+package controller;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -6,6 +8,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
+
+import model.Competitor;
+import controller.CompetitorList;
+import model.Name;
+
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -29,14 +36,18 @@ public class OfficialPanel extends JFrame {
         Font buttonFont = new Font("Arial", Font.PLAIN, 12);
 
         JButton viewCompetitorsButton = createButton("View Competitors", buttonFont, e -> displayCompetitors());
-        JButton sortCompetitorsByNumberButton = createButton("Sort by Number", buttonFont,
+        JButton sortCompetitorsByNumberButton = createButton("Sort Competitors by Number", buttonFont,
                 e -> sortByCompetitorNumber());
-        JButton sortCompetitorsAlphabeticallyButton = createButton("Sort Alphabetically", buttonFont,
+        JButton sortCompetitorsAlphabeticallyButton = createButton("Sort Competitors Alphabetically", buttonFont,
                 e -> sortByAlphabeticalOrder());
-        JButton generateReportButton = createButton("Generate Report", buttonFont, e -> generateCompetitionReport());
+        JButton generateReportButton = createButton("Generate Full Report", buttonFont,
+                e -> generateCompetitionReport());
         JButton viewScoresByIdButton = createButton("View Scores by ID", buttonFont, e -> displayScoresById());
+        JButton viewShortDetails = createButton("View Short Details", buttonFont, e -> displayShortDetails());
+        JButton viewFullDetails = createButton("View Full Details", buttonFont, e -> displayFullDetails());
         JButton recordScoresButton = createButton("Record Scores", buttonFont, e -> recordScoresDialog());
-        JButton generateSummaryButton = createButton("Generate Summary", buttonFont, e -> displaySummaryReport());
+        JButton generateSummaryButton = createButton("Generate Summary Report", buttonFont,
+                e -> displaySummaryReport());
         JButton amendDetailsButton = createButton("Amend Competitor Details", buttonFont, e -> editDetailsDialog());
         JButton registerCompetitorButton = createButton("Register Competitor", buttonFont, e -> registerCompetitor());
         JButton removeCompetitorButton = createButton("Remove Non-compliant Competitor", buttonFont,
@@ -52,6 +63,8 @@ public class OfficialPanel extends JFrame {
         panel.add(sortCompetitorsAlphabeticallyButton);
         panel.add(generateReportButton);
         panel.add(viewScoresByIdButton);
+        panel.add(viewShortDetails);
+        panel.add(viewFullDetails);
         panel.add(recordScoresButton);
         panel.add(generateSummaryButton);
         panel.add(amendDetailsButton);
@@ -102,16 +115,11 @@ public class OfficialPanel extends JFrame {
     }
 
     private void generateCompetitionReport() {
-        // Create an instance of the Result class
-        Result result = new Result(competitorList.getCompetitors());
-
-        // Use the writeReportToTextArea method to display the report in the JTextArea
-        result.writeReportToTextArea(competitorsTextArea);
+        competitorList.writeReportToTextArea(competitorsTextArea);
     }
 
     private void displaySummaryReport() {
-        Result result = new Result(competitorList.getCompetitors());
-        result.displaySummaryInGUI(competitorsTextArea);
+        competitorList.displaySummaryInGUI(competitorsTextArea);
     }
 
     private void displayScoresById() {
@@ -122,6 +130,26 @@ public class OfficialPanel extends JFrame {
             if (scores != null) {
                 competitorsTextArea.setText(Arrays.toString(scores));
             }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Invalid Competitor ID. Please enter a number.");
+        }
+    }
+
+    private void displayShortDetails() {
+        String input = JOptionPane.showInputDialog("Enter Competitor ID:");
+        try {
+            int competitorID = Integer.parseInt(input);
+            competitorsTextArea.setText(competitorList.getCompetitorById(competitorID).getShortDetails());
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Invalid Competitor ID. Please enter a number.");
+        }
+    }
+
+    private void displayFullDetails() {
+        String input = JOptionPane.showInputDialog("Enter Competitor ID:");
+        try {
+            int competitorID = Integer.parseInt(input);
+            competitorsTextArea.setText(competitorList.getCompetitorById(competitorID).getFullDetails());
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Invalid Competitor ID. Please enter a number.");
         }

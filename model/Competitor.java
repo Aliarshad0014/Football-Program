@@ -1,3 +1,5 @@
+package model;
+
 import java.util.Arrays;
 
 public class Competitor {
@@ -78,6 +80,13 @@ public class Competitor {
         details.append(String.format("This gives him/her an overall score of %.2f.%n", calculateOverallScore()));
 
         return details.toString();
+    }
+
+    public String getShortDetails() {
+        String initials = name.getFirstName().substring(0, 1) + name.getLastName().substring(0, 1);
+
+        return String.format("Short details for %d:%nCN %d (%s) has overall score %.2f.%n",
+                competitorNumber, competitorNumber, initials, calculateOverallScore());
     }
 
     public void printToConsole() {

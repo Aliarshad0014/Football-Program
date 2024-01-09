@@ -1,3 +1,5 @@
+package model;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,11 +12,59 @@ import javax.swing.JTextArea;
 import java.util.Collections;
 
 public class Result {
-
     private ArrayList<Competitor> competitors;
+    private ArrayList<Staff> staffResponsible;
+    private String summaryStatistics;
+    private Competition competition;
+    private Competitor winner;
 
-    public Result(ArrayList<Competitor> competitors) {
+    public Result(ArrayList<Competitor> competitors, ArrayList<Staff> staffResponsible,
+            String summaryStatistics, Competition competition, Competitor winner) {
         this.competitors = competitors;
+        this.staffResponsible = staffResponsible;
+        this.summaryStatistics = summaryStatistics;
+        this.competition = competition;
+        this.winner = winner;
+    }
+
+    public ArrayList<Competitor> getCompetitors() {
+        return competitors;
+    }
+
+    public void setCompetitors(ArrayList<Competitor> competitors) {
+        this.competitors = competitors;
+    }
+
+    public ArrayList<Staff> getStaffResponsible() {
+        return staffResponsible;
+    }
+
+    public void setStaffResponsible(ArrayList<Staff> staffResponsible) {
+        this.staffResponsible = staffResponsible;
+    }
+
+    public String getSummaryStatistics() {
+        return summaryStatistics;
+    }
+
+    public void setSummaryStatistics(String summaryStatistics) {
+        this.summaryStatistics = summaryStatistics;
+    }
+
+    public Competition getCompetition() {
+        return competition;
+    }
+
+    public void setCompetition(Competition competition) {
+        this.competition = competition;
+    }
+
+    public Competitor getWinner() {
+        return winner;
+    }
+
+    public void setWinner(Competitor winner) {
+        this.winner = winner;
     }
 
     public static double calculateOverallScore(Competitor competitor) {
@@ -150,6 +200,20 @@ public class Result {
         return report.toString();
     }
 
+    public String generateShortReportAsString() {
+        StringBuilder report = new StringBuilder();
+
+        // Details of the competitor with the highest overall score
+        Competitor highestScorer = getCompetitorWithHighestOverallScore(competitors);
+        report.append("Competition Winner:\n");
+        report.append("Competitor with the Highest Overall Score:\n");
+        report.append(String.format("Competitor Number: %s\n", highestScorer.getCompetitorNumber()));
+        report.append(String.format("Competitor Name: %s\n", highestScorer.getName().getFullName()));
+        report.append(String.format("Overall Score: %.2f\n", calculateOverallScore(highestScorer)));
+
+        return report.toString();
+    }
+
     public void writeReportToFile(String outputFilePath) {
         try (FileWriter writer = new FileWriter(outputFilePath)) {
             String report = generateFullReportAsString();
@@ -157,11 +221,6 @@ public class Result {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void writeReportToTextArea(JTextArea textArea) {
-        String report = generateFullReportAsString();
-        textArea.setText(report);
     }
 
     private String scoresToString(int[] scores) {
@@ -201,9 +260,5 @@ public class Result {
 
     public void printSummaryToConsole() {
         System.out.println(generateSummaryReportAsString());
-    }
-
-    public void displaySummaryInGUI(JTextArea textArea) {
-        textArea.setText(generateSummaryReportAsString());
     }
 }
